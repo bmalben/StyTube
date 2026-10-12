@@ -1,0 +1,5 @@
+videoId,channelId,classLevel,syllabus,subject,language,chapter,pinned,_example
+PLACEHOLDER123,UCXXXXXXXXXXXXXXX,10,cbse,physics,english,Light - Reflection and Refraction,false,true
+TODO_VIDEO_ID,UCXXXXXXXXXXXXXXX,9,state,chemistry,hindi,Atoms and Molecules,false,true
+EXAMPLEVIDEO1,UCXXXXXXXXXXXXXXX,11,icse,maths,malayalam,Probability,false,true
+EXAMPLEVIDEO2,UCXXXXXXXXXXXXXXX,12,cbse,biology,tamil,Genetics,false,true

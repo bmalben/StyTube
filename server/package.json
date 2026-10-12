@@ -1,0 +1,33 @@
+{
+  "name": "studytube-server",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "seed": "node src/seed.js",
+    "seed:channels": "node src/jobs/seedChannels.js",
+    "refresh:videos": "node src/jobs/refreshVideos.js",
+    "coverage": "node src/jobs/coverageReport.js",
+    "test": "node --test src/services/tests/*.test.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb-memory-server": "^10.0.0",
+    "mongoose": "^8.7.2",
+    "node-cron": "^4.1.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

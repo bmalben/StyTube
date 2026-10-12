@@ -1,0 +1,96 @@
+{
+  "todo": "Manually verify each channel ID, relevance, and ad behavior before enabling a channel. Do not assume a channel is ad-light. Public, educational, and nonprofit channels are the safest candidates.",
+  "channels": [
+    {
+      "channelId": "VERIFY_REQUIRED_NCERT_OFFICIAL",
+      "name": "NCERT Official",
+      "trustTier": "verified-adlight",
+      "classLevels": [8, 9, 10, 11, 12],
+      "syllabi": ["CBSE"],
+      "subjects": ["Physics", "Chemistry", "Biology", "Maths", "English", "History"],
+      "languages": ["English", "Hindi"],
+      "uploadsPlaylistId": "VERIFY_REQUIRED",
+      "extraPlaylistIds": [],
+      "notes": "Official public curriculum content. Confirm the precise channel ID and verify ad behavior before enabling.",
+      "active": false
+    },
+    {
+      "channelId": "VERIFY_REQUIRED_CBSERESOURCE",
+      "name": "CBSE Resource Hub",
+      "trustTier": "trusted",
+      "classLevels": [8, 9, 10, 11, 12],
+      "syllabi": ["CBSE"],
+      "subjects": ["Physics", "Chemistry", "Biology", "Maths"],
+      "languages": ["English", "Hindi"],
+      "uploadsPlaylistId": "VERIFY_REQUIRED",
+      "extraPlaylistIds": [],
+      "notes": "Public education resource. Verify the exact ID and content quality before activation.",
+      "active": false
+    },
+    {
+      "channelId": "VERIFY_REQUIRED_KITE_VICTERS",
+      "name": "Kerala KITE VICTERS First Bell",
+      "trustTier": "verified-adlight",
+      "classLevels": [8, 9, 10, 11, 12],
+      "syllabi": ["State"],
+      "subjects": ["Physics", "Chemistry", "Biology", "Maths", "English", "Geography"],
+      "languages": ["Malayalam"],
+      "uploadsPlaylistId": "VERIFY_REQUIRED",
+      "extraPlaylistIds": [],
+      "notes": "State public education channel; verify the exact ID and ensure the videos are public and embeddable.",
+      "active": false
+    },
+    {
+      "channelId": "VERIFY_REQUIRED_DIKSHA",
+      "name": "DIKSHA",
+      "trustTier": "trusted",
+      "classLevels": [8, 9, 10, 11, 12],
+      "syllabi": ["State", "CBSE"],
+      "subjects": ["Physics", "Chemistry", "Biology", "Maths", "English"],
+      "languages": ["English", "Hindi", "Malayalam"],
+      "uploadsPlaylistId": "VERIFY_REQUIRED",
+      "extraPlaylistIds": [],
+      "notes": "Public educational initiative. Requires manual validation before being treated as a preferred source.",
+      "active": false
+    },
+    {
+      "channelId": "VERIFY_REQUIRED_SWAYAM_PRABHA",
+      "name": "SWAYAM Prabha",
+      "trustTier": "trusted",
+      "classLevels": [8, 9, 10, 11, 12],
+      "syllabi": ["State", "CBSE"],
+      "subjects": ["Physics", "Chemistry", "Biology", "Maths", "English"],
+      "languages": ["English", "Hindi"],
+      "uploadsPlaylistId": "VERIFY_REQUIRED",
+      "extraPlaylistIds": [],
+      "notes": "Public digital learning platform. Use only after confirming exact IDs and playlist mappings.",
+      "active": false
+    },
+    {
+      "channelId": "VERIFY_REQUIRED_KHAN_ACADEMY",
+      "name": "Khan Academy",
+      "trustTier": "verified-adlight",
+      "classLevels": [8, 9, 10, 11, 12],
+      "syllabi": ["CBSE", "ICSE"],
+      "subjects": ["Physics", "Chemistry", "Biology", "Maths", "English"],
+      "languages": ["English"],
+      "uploadsPlaylistId": "VERIFY_REQUIRED",
+      "extraPlaylistIds": [],
+      "notes": "High-quality instructional content from a recognized nonprofit educational platform. Validate exact channel metadata before activation.",
+      "active": false
+    },
+    {
+      "channelId": "VERIFY_REQUIRED_NPTEL",
+      "name": "NPTEL",
+      "trustTier": "trusted",
+      "classLevels": [11, 12],
+      "syllabi": ["CBSE", "ICSE"],
+      "subjects": ["Physics", "Chemistry", "Maths"],
+      "languages": ["English", "Hindi"],
+      "uploadsPlaylistId": "VERIFY_REQUIRED",
+      "extraPlaylistIds": [],
+      "notes": "University-grade lectures. Good for advanced topics; confirm exact playlist IDs and embed policy before activation.",
+      "active": false
+    }
+  ]
+}
