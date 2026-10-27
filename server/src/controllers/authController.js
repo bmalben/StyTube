@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs')
 const { z } = require('zod')
 const User = require('../models/User')
 const { sendAuthCookie, signToken } = require('../utils/auth')
+const { serializeUser } = require('../utils/avatar')
 
 const registerSchema = z.object({
   name: z.string().trim().min(2).max(80),
@@ -14,7 +15,7 @@ const loginSchema = z.object({
   password: z.string().min(6).max(128),
 })
 
-const sanitizeUser = (user) => user.toPublicJSON ? user.toPublicJSON() : { ...user.toObject(), passwordHash: undefined }
+const sanitizeUser = (user, req = null) => user.toPublicJSON ? user.toPublicJSON(req) : serializeUser(user, req)
 
 const register = async (req, res, next) => {
   try {
@@ -37,7 +38,7 @@ const register = async (req, res, next) => {
 
     return res.status(201).json({
       token,
-      user: sanitizeUser(user),
+      user: sanitizeUser(user, req),
     })
   } catch (error) {
     next(error)
@@ -63,7 +64,7 @@ const login = async (req, res, next) => {
 
     return res.json({
       token,
-      user: sanitizeUser(user),
+      user: sanitizeUser(user, req),
     })
   } catch (error) {
     next(error)
@@ -86,7 +87,7 @@ const getMe = async (req, res, next) => {
     }
 
     const user = await User.findById(req.user._id).select('-passwordHash')
-    return res.json({ user: sanitizeUser(user) })
+    return res.json({ user: sanitizeUser(user, req) })
   } catch (error) {
     next(error)
   }

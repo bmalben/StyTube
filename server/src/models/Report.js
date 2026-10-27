@@ -22,7 +22,7 @@ const reportSchema = new mongoose.Schema(
       default: null,
     },
   },
-  { timestamps: true },
+  { timestamps: true, collection: 'reports' },
 )
 
 module.exports = mongoose.model('Report', reportSchema)

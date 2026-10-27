@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import titleImage from '../assets/Logo.png'
+import Avatar from './Avatar'
 import { useAuth } from '../context/AuthContext'
 
 const navItemClass = ({ isActive }) =>
@@ -57,9 +58,7 @@ function Navbar({ theme, onToggleTheme }) {
                 className="flex items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-3 py-2 text-sm font-medium text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 aria-expanded={menuOpen}
               >
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-indigo-600 text-xs font-bold text-white">
-                  {user.name?.charAt(0).toUpperCase() || 'U'}
-                </span>
+                <Avatar user={user} size="sm" />
                 <span className="hidden sm:inline">{user.name}</span>
               </button>
 

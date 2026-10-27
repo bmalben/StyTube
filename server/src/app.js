@@ -70,6 +70,8 @@ app.use('/api/auth', require('./routes/authRoutes'))
 app.use('/api/videos', require('./routes/videoRoutes'))
 app.use('/api/history', require('./routes/historyRoutes'))
 app.use('/api/user', require('./routes/userRoutes'))
+app.use('/api/user', require('./routes/photoRoutes'))
+app.use('/api/photos', require('./routes/photoRoutes'))
 app.use('/api/reports', require('./routes/reportRoutes'))
 app.use('/api/admin', require('./routes/adminRoutes'))
 

@@ -31,6 +31,17 @@ const formatDuration = (seconds = 0) => {
   return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`
 }
 
+const escapeRegex = (value = '') => String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+const exactValueMatch = (value, fallback = '') => {
+  const normalized = String(value ?? fallback).trim()
+  if (!normalized) return undefined
+  const pattern = new RegExp(`^${escapeRegex(normalized)}$`, 'i')
+  return { $regex: pattern }
+}
+
+const isAnySelection = (value = '') => String(value || '').trim().toLowerCase() === 'any'
+
 const mapCuratedVideo = (video, fallbackLevel = 'exact') => ({
   id: video.videoId,
   title: video.title,
@@ -66,32 +77,40 @@ const getVideos = async (req, res, next) => {
     const subject = String(payload.subject || 'Physics').trim()
     const language = String(payload.language || 'Any').trim()
 
-    const exact = await CuratedVideo.find({
+    const exactFilter = {
       classLevel,
-      syllabus,
-      subject,
-      language,
-      hidden: false,
-    })
+      hidden: { $ne: true },
+    }
+    const syllabusMatcher = exactValueMatch(syllabus, 'CBSE')
+    const subjectMatcher = exactValueMatch(subject, 'Physics')
+    if (syllabusMatcher) exactFilter.syllabus = syllabusMatcher
+    if (subjectMatcher) exactFilter.subject = subjectMatcher
+    if (!isAnySelection(language)) exactFilter.language = exactValueMatch(language, 'English')
+
+    const exact = await CuratedVideo.find(exactFilter)
       .sort({ pinned: -1, qualityScore: -1, lastRefreshedAt: -1 })
       .lean()
 
-    const anyLanguage = await CuratedVideo.find({
+    const anyLanguageFilter = {
       classLevel,
-      syllabus,
-      subject,
-      hidden: false,
-      language: { $ne: language },
-    })
+      hidden: { $ne: true },
+    }
+    if (syllabusMatcher) anyLanguageFilter.syllabus = syllabusMatcher
+    if (subjectMatcher) anyLanguageFilter.subject = subjectMatcher
+    if (!isAnySelection(language)) anyLanguageFilter.language = { $not: exactValueMatch(language, 'English') }
+
+    const anyLanguage = await CuratedVideo.find(anyLanguageFilter)
       .sort({ pinned: -1, qualityScore: -1, lastRefreshedAt: -1 })
       .lean()
 
-    const otherSyllabus = await CuratedVideo.find({
+    const otherSyllabusFilter = {
       classLevel,
-      subject,
-      syllabus: { $ne: syllabus },
-      hidden: false,
-    })
+      hidden: { $ne: true },
+      subject: subjectMatcher,
+      syllabus: { $not: syllabusMatcher },
+    }
+
+    const otherSyllabus = await CuratedVideo.find(otherSyllabusFilter)
       .sort({ pinned: -1, qualityScore: -1, lastRefreshedAt: -1 })
       .limit(20)
       .lean()

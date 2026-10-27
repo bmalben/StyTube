@@ -19,6 +19,11 @@ const curatedVideoSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    channelTitle: {
+      type: String,
+      default: '',
+      trim: true,
+    },
     thumbnail: {
       type: String,
       default: '',
@@ -43,6 +48,7 @@ const curatedVideoSchema = new mongoose.Schema(
       type: Number,
       min: 8,
       max: 12,
+      default: 10,
     },
     syllabus: {
       type: String,
@@ -90,10 +96,11 @@ const curatedVideoSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    collection: 'curatedVideos',
   },
 )
 
-curatedVideoSchema.index({ classLevel: 1, syllabus: 1, subject: 1, language: 1, hidden: 1 })
+curatedVideoSchema.index({ classLevel: 1, syllabus: 1, subject: 1, language: 1, hidden: 1, pinned: 1, qualityScore: 1 })
 curatedVideoSchema.index({ source: 1, videoId: 1 })
 
 module.exports = mongoose.model('CuratedVideo', curatedVideoSchema)

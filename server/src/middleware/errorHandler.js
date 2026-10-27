@@ -6,8 +6,17 @@ module.exports = (error, req, res, next) => {
     console.error(error)
   }
 
-  res.status(statusCode).json({
-    message,
-    ...(process.env.NODE_ENV !== 'production' && { stack: error.stack }),
-  })
+  const payload = {
+    error: {
+      code: error.code || 'SERVER_ERROR',
+      message,
+      ...(error.fields ? { fields: error.fields } : {}),
+    },
+  }
+
+  if (process.env.NODE_ENV !== 'production') {
+    payload.error.stack = error.stack
+  }
+
+  res.status(statusCode).json(payload)
 }

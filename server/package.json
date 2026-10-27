@@ -7,7 +7,10 @@
     "dev": "nodemon index.js",
     "start": "node index.js",
     "seed": "node src/seed.js",
-    "seed:channels": "node src/jobs/seedChannels.js",
+    "db:inspect": "node src/scripts/inspectDb.js",
+    "db:migrate": "node src/scripts/migrateDb.js",
+    "seed:channels": "node src/scripts/seedChannels.js",
+    "seed:videos": "node src/scripts/seedCuratedVideos.js",
     "refresh:videos": "node src/jobs/refreshVideos.js",
     "coverage": "node src/jobs/coverageReport.js",
     "test": "node --test src/services/tests/*.test.js"
@@ -20,11 +23,14 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "express-rate-limit": "^7.4.0",
+    "file-type": "^22.1.1",
     "helmet": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb-memory-server": "^10.0.0",
     "mongoose": "^8.7.2",
+    "multer": "^2.4.0",
     "node-cron": "^4.1.0",
+    "sharp": "^0.35.5",
     "zod": "^3.23.8"
   },
   "devDependencies": {

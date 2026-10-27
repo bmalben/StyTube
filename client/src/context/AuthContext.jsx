@@ -8,10 +8,13 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   const request = async (url, options = {}) => {
+    const isFormData = typeof FormData !== 'undefined' && options.body instanceof FormData
+
     const response = await fetch(`${API_URL}${url}`, {
       credentials: 'include',
       headers: {
-        'Content-Type': 'application/json',
+        ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
+        ...(options.method && options.method !== 'GET' ? { 'X-Requested-With': 'StudyTube' } : {}),
         ...(options.headers || {}),
       },
       ...options,
@@ -21,7 +24,9 @@ export function AuthProvider({ children }) {
     const payload = contentType.includes('application/json') ? await response.json() : await response.text()
 
     if (!response.ok) {
-      const message = typeof payload === 'string' ? payload : payload.message || 'Request failed.'
+      const message = typeof payload === 'string'
+        ? payload
+        : payload?.error?.message || payload?.message || 'Request failed.'
       throw new Error(message)
     }
 
@@ -44,6 +49,13 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     refreshUser()
   }, [])
+
+  const updateUser = (updatedUser) => {
+    setUser((current) => {
+      if (!current) return updatedUser
+      return { ...current, ...updatedUser }
+    })
+  }
 
   const login = async (formData) => {
     const data = await request('/api/auth/login', {
@@ -90,6 +102,7 @@ export function AuthProvider({ children }) {
       register,
       logout,
       refreshUser,
+      updateUser,
       updatePreferences,
     }),
     [user, loading],

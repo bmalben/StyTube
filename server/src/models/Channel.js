@@ -46,6 +46,7 @@ const channelSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    collection: 'channels',
   },
 )
 

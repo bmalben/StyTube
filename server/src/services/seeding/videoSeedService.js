@@ -170,6 +170,7 @@ const seedCuratedVideos = async ({
       const nextPayload = {
         videoId: entry.videoId,
         channelId,
+        channelTitle: snippet.channelTitle || '',
         title,
         thumbnail: snippet.thumbnails?.high?.url || snippet.thumbnails?.medium?.url || snippet.thumbnails?.default?.url || '',
         durationSeconds,

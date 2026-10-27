@@ -46,6 +46,7 @@ const watchHistorySchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    collection: 'watchHistories',
   },
 )
 

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { serializeUser } = require('../utils/avatar')
 
 const userSchema = new mongoose.Schema(
   {
@@ -24,6 +25,16 @@ const userSchema = new mongoose.Schema(
       enum: ['user', 'admin'],
       default: 'user',
     },
+    avatar: {
+      photoId: {
+        type: String,
+        default: null,
+      },
+      updatedAt: {
+        type: Date,
+        default: null,
+      },
+    },
     preferences: {
       classLevel: {
         type: Number,
@@ -45,13 +56,25 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    collection: 'users',
   },
 )
 
-userSchema.methods.toPublicJSON = function () {
-  const user = this.toObject()
-  delete user.passwordHash
-  return user
+userSchema.methods.toPublicJSON = function (req = null) {
+  return serializeUser(this, req)
 }
+
+userSchema.post('findOneAndDelete', async function (doc) {
+  if (!doc) return
+  const ProfilePhoto = require('./ProfilePhoto')
+  await ProfilePhoto.deleteMany({ user: doc._id })
+})
+
+userSchema.post('deleteOne', async function () {
+  const doc = await this.model.findOne(this.getFilter())
+  if (!doc) return
+  const ProfilePhoto = require('./ProfilePhoto')
+  await ProfilePhoto.deleteMany({ user: doc._id })
+})
 
 module.exports = mongoose.model('User', userSchema)
